@@ -1,5 +1,5 @@
 # knockout
-A tool to help making decisions in case of huge samples. Think, eg., about choosing a film to watch on Netflix. The idea behind knockout is to split the selections into small chunks, select a favourite in every chunk and knock out the others. After only a few rounds you will have your favourite movie to watch.
+A tool to help making decisions in case of huge samples. Think, eg., about choosing a movie to watch on Netflix. The idea behind knockout is to split the selections into small chunks, select a favourite in every chunk and knock out the others. After only a few rounds you will have your favourite movie to watch.
 
 Install:
 1. Clone repo
