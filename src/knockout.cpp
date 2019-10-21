@@ -21,9 +21,9 @@ string Knockout::choosePreference(const vector<string> &titles) const
     {
         unsigned int preference;
         cout << "\nChoose between the following titles by selecting the number: " << endl;
-        for(unsigned int title_index = 0; title_index < titles.size(); title_index++)
+        for(size_t title_index = 0; title_index < titles.size(); title_index++)
         {
-            cout << title_index+1 << ": " << titles[title_index] << endl;
+            cout << title_index + 1 << ": " << titles[title_index] << endl;
         }
         selectionMode >> preference;
 
@@ -120,9 +120,9 @@ string choosePreference(const vector<string> &titles, istream& istream)
     {
         unsigned int preference;
         cout << "\nChoose between the following titles by selecting the number: " << endl;
-        for(unsigned int title_index = 0; title_index < titles.size(); title_index++)
+        for(size_t title_index = 0; title_index < titles.size(); title_index++)
         {
-            cout << title_index+1 << ": " << titles[title_index] << endl;
+            cout << title_index + 1 << ": " << titles[title_index] << endl;
         }
         istream >> preference;
        
