@@ -6,4 +6,6 @@ int main(int argc, char **argv)
 {
     std::ifstream imdbInput("..//tests//data.tsv");
     mainRoutine(imdbInput);
+    Knockout knockout(imdbInput);
+    //knockout.solve();
 }

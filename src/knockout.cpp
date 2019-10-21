@@ -1,7 +1,17 @@
 #include "knockout.h"
 #include <sstream>
 
-std::string choosePreference(const std::vector<std::string> &titles, std::istream& istream)
+Knockout::Knockout(istream& titleDatabase_, istream& selectionMode_,
+                   unsigned int sizeOfPackages_, unsigned int amountOfTitles_) :
+    sizeOfPackages(sizeOfPackages_), amountOfTitles(amountOfTitles_),
+    titleDatabase(titleDatabase_), selectionMode(selectionMode_)
+{
+}
+
+Knockout::~Knockout()
+{}
+
+string Knockout::choosePreference(const vector<string> &titles) const
 {
     if(titles.size() == 1)
     {
@@ -10,24 +20,22 @@ std::string choosePreference(const std::vector<std::string> &titles, std::istrea
     else
     {
         unsigned int preference;
-        std::cout << "\nChoose between the following titles by selecting the number: " << std::endl;
+        cout << "\nChoose between the following titles by selecting the number: " << endl;
         for(unsigned int title_index = 0; title_index < titles.size(); title_index++)
         {
-            std::cout << title_index+1 << ": " << titles[title_index] << std::endl;
+            cout << title_index+1 << ": " << titles[title_index] << endl;
         }
-        istream >> preference;
-       
-        std::cout << "Your choice: " << titles[preference-1] << std::endl;
+        selectionMode >> preference;
+
+        cout << "Your choice: " << titles[preference-1] << endl;
         return titles[preference-1];
     }
 }
 
-
-
-std::vector<std::vector<std::string> > makePackages(const std::vector<std::string>& titles, unsigned int sizeOfPackages)
+vector<vector<string>> Knockout::makePackages(const vector<string>& titles) const
 {
-    std::vector<std::vector<std::string>> packedTitles;
-    std::vector<std::string> package;
+    vector<vector<string>> packedTitles;
+    vector<string> package;
     for (const auto& it : titles)
     {
         package.push_back(it);
@@ -46,44 +54,43 @@ std::vector<std::vector<std::string> > makePackages(const std::vector<std::strin
     return packedTitles;
 }
 
-std::vector<std::string> playOneLevel(const std::vector<std::string>& titles, std::istream& istream,
-                                      unsigned int sizeOfPackages)
+vector<string> Knockout::playOneLevel(const vector<string>& titles) const
 {
-    auto packedTitles = makePackages(titles, sizeOfPackages);
-    std::vector<std::string> titlesForNextLevel;
+    auto packedTitles = makePackages(titles);
+    vector<string> titlesForNextLevel;
     for (const auto& it : packedTitles)
     {
-        titlesForNextLevel.push_back(choosePreference(it, istream));
+        titlesForNextLevel.push_back(choosePreference(it));
     }
     return titlesForNextLevel;
 }
 
-std::string playAllLevels(const std::vector<std::string>& titles, std::istream& istream)
+string Knockout::playAllLevels(const vector<string>& titles) const
 {
-    std::vector<std::string> activeTitles = titles;
+    vector<string> activeTitles = titles;
     unsigned int levelNumber = 0;
     while(activeTitles.size() > 1)
     {
         levelNumber++;
-        std::cout << "*************************************************************" << std::endl;
-        std::cout << "Level " << levelNumber << " selection" << std::endl;
-        activeTitles = playOneLevel(activeTitles, istream);
+        cout << "*************************************************************" << endl;
+        cout << "Level " << levelNumber << " selection" << endl;
+        activeTitles = playOneLevel(activeTitles);
     }
-    std::cout << "Enjoy the movie!" << std::endl;
+    cout << "Enjoy the movie!" << endl;
     return activeTitles[0];
 }
 
-std::vector<std::string> selectTitlesFromTSVFile(std::istream& istream, unsigned int amountOfTitles)
+vector<string> Knockout::selectTitlesFromTSVFile() const
 {
-    std::vector<std::string> titles;
-    std::string contentOfRow;
-    for(std::size_t rowIndex = 0; rowIndex < amountOfTitles; rowIndex++)
+    vector<string> titles;
+    string contentOfRow;
+    for(size_t rowIndex = 0; rowIndex < amountOfTitles; rowIndex++)
     {
-        std::getline(istream, contentOfRow);
-        std::stringstream contentBuffer (contentOfRow);
-        std::string tempColumnEntry;
-        std::vector<std::string> cleanContentOfRow;
-        while(std::getline(contentBuffer, tempColumnEntry, '\t') )
+        getline(titleDatabase, contentOfRow);
+        stringstream contentBuffer (contentOfRow);
+        string tempColumnEntry;
+        vector<string> cleanContentOfRow;
+        while(getline(contentBuffer, tempColumnEntry, '\t') )
         {
             cleanContentOfRow.push_back(tempColumnEntry);
         }
@@ -92,14 +99,116 @@ std::vector<std::string> selectTitlesFromTSVFile(std::istream& istream, unsigned
     return titles;
 }
 
-std::string mainRoutine(std::istream& titleDatabase, std::istream& selectionMode)
+string Knockout::solve() const
 {
     //remove the headers from the Database
-    std::string headers;
-    std::getline(titleDatabase, headers);
+    string headers;
+    getline(titleDatabase, headers);
 
-    std::vector<std::string> titlesFromDatabase = selectTitlesFromTSVFile(titleDatabase);
-    std::string favouriteTitle = playAllLevels(titlesFromDatabase, selectionMode);
+    vector<string> titlesFromDatabase = selectTitlesFromTSVFile();
+    string favouriteTitle = playAllLevels(titlesFromDatabase);
+    return favouriteTitle;
+}
+
+string choosePreference(const vector<string> &titles, istream& istream)
+{
+    if(titles.size() == 1)
+    {
+        return titles[0];
+    }
+    else
+    {
+        unsigned int preference;
+        cout << "\nChoose between the following titles by selecting the number: " << endl;
+        for(unsigned int title_index = 0; title_index < titles.size(); title_index++)
+        {
+            cout << title_index+1 << ": " << titles[title_index] << endl;
+        }
+        istream >> preference;
+       
+        cout << "Your choice: " << titles[preference-1] << endl;
+        return titles[preference-1];
+    }
+}
+
+
+
+vector<vector<string>> makePackages(const vector<string>& titles, unsigned int sizeOfPackages)
+{
+    vector<vector<string>> packedTitles;
+    vector<string> package;
+    for (const auto& it : titles)
+    {
+        package.push_back(it);
+        if(package.size() == sizeOfPackages)
+        {
+           packedTitles.push_back(package);
+           package.clear();
+        }
+    }
+
+    if(!package.empty())
+    {
+        packedTitles.push_back(package);
+    }
+
+    return packedTitles;
+}
+
+vector<string> playOneLevel(const vector<string>& titles, istream& istream,
+                                      unsigned int sizeOfPackages)
+{
+    auto packedTitles = makePackages(titles, sizeOfPackages);
+    vector<string> titlesForNextLevel;
+    for (const auto& it : packedTitles)
+    {
+        titlesForNextLevel.push_back(choosePreference(it, istream));
+    }
+    return titlesForNextLevel;
+}
+
+string playAllLevels(const vector<string>& titles, istream& istream)
+{
+    vector<string> activeTitles = titles;
+    unsigned int levelNumber = 0;
+    while(activeTitles.size() > 1)
+    {
+        levelNumber++;
+        cout << "*************************************************************" << endl;
+        cout << "Level " << levelNumber << " selection" << endl;
+        activeTitles = playOneLevel(activeTitles, istream);
+    }
+    cout << "Enjoy the movie!" << endl;
+    return activeTitles[0];
+}
+
+vector<string> selectTitlesFromTSVFile(istream& istream, unsigned int amountOfTitles)
+{
+    vector<string> titles;
+    string contentOfRow;
+    for(size_t rowIndex = 0; rowIndex < amountOfTitles; rowIndex++)
+    {
+        getline(istream, contentOfRow);
+        stringstream contentBuffer (contentOfRow);
+        string tempColumnEntry;
+        vector<string> cleanContentOfRow;
+        while(getline(contentBuffer, tempColumnEntry, '\t') )
+        {
+            cleanContentOfRow.push_back(tempColumnEntry);
+        }
+        titles.push_back(cleanContentOfRow[2]);
+    }
+    return titles;
+}
+
+string mainRoutine(istream& titleDatabase, istream& selectionMode)
+{
+    //remove the headers from the Database
+    string headers;
+    getline(titleDatabase, headers);
+
+    vector<string> titlesFromDatabase = selectTitlesFromTSVFile(titleDatabase);
+    string favouriteTitle = playAllLevels(titlesFromDatabase, selectionMode);
     return favouriteTitle;
 }
 

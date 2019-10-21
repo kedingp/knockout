@@ -5,18 +5,43 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <memory>
 
-std::string choosePreference(const std::vector<std::string>& titles, std::istream& istream = std::cin);
+using namespace std;
 
-std::vector<std::vector<std::string>> makePackages(const std::vector<std::string> &titles, unsigned int sizeOfPackages = 3);
+class Knockout
+{
+public:
+    Knockout(istream &titleDatabase_, istream &selectionMode_ = cin,
+             unsigned int sizeOfPackages_ = 3, unsigned int amountOfTitles_ = 9);
+    ~Knockout();
+    string solve() const;
+private:
+    const unsigned int sizeOfPackages;
+    const unsigned int amountOfTitles;
+    istream& titleDatabase;
+    istream& selectionMode;
 
-std::vector<std::string> playOneLevel(const std::vector<std::string>& titles, std::istream& istream = std::cin,
+    string choosePreference(const vector<string>& titles) const;
+    vector<vector<string>> makePackages(const vector<string> &titles) const;
+    vector<string> playOneLevel(const vector<string>& titles) const;
+    string playAllLevels(const vector<string>& titles) const;
+    vector<string> selectTitlesFromTSVFile() const;
+};
+
+
+
+string choosePreference(const vector<string>& titles, istream& istream = cin);
+
+vector<vector<string>> makePackages(const vector<string> &titles, unsigned int sizeOfPackages = 3);
+
+vector<string> playOneLevel(const vector<string>& titles, istream& istream = cin,
                                       unsigned int sizeOfPackages = 3);
 
-std::string playAllLevels(const std::vector<std::string>& titles, std::istream& istream = std::cin);
+string playAllLevels(const vector<string>& titles, istream& istream = cin);
 
-std::vector<std::string> selectTitlesFromTSVFile(std::istream& istream, unsigned int amountOfTitles = 9);
+vector<string> selectTitlesFromTSVFile(istream& istream, unsigned int amountOfTitles = 9);
 
-std::string mainRoutine(std::istream& titleDatabase, std::istream& selectionMode = std::cin);
+string mainRoutine(istream& titleDatabase, istream& selectionMode = cin);
 
 #endif
