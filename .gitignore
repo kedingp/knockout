@@ -39,3 +39,11 @@ build
 
 # Data files
 *.tsv
+
+# QT Creator
+*.cflags
+*.config
+*.creator
+*.cxxflags
+*.files
+*.includes

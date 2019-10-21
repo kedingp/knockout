@@ -1,7 +1,7 @@
 #include "knockout.h"
 #include <sstream>
 
-std::string choosePreference(std::vector<std::string> i_title, std::istream& i_istream)
+std::string choosePreference(const std::vector<std::string> &i_title, std::istream& i_istream)
 {
     if(i_title.size() == 1)
     {
@@ -24,15 +24,13 @@ std::string choosePreference(std::vector<std::string> i_title, std::istream& i_i
 
 
 
-std::vector<std::vector<std::string>> makePackages(std::vector<std::string> i_titles,
-                                                   unsigned int i_sizeOfPackages)
+std::vector<std::vector<std::string> > makePackages(const std::vector<std::string>& i_titles, unsigned int i_sizeOfPackages)
 {
     std::vector<std::vector<std::string>> packedTitles;
     std::vector<std::string> package;
-    while(!i_titles.empty())
+    for (const auto& it : i_titles)
     {
-        package.push_back(i_titles[0]);
-        i_titles.erase(i_titles.begin());
+        package.push_back(it);
         if(package.size() == i_sizeOfPackages)
         {
            packedTitles.push_back(package);
@@ -48,20 +46,19 @@ std::vector<std::vector<std::string>> makePackages(std::vector<std::string> i_ti
     return packedTitles;
 }
 
-std::vector<std::string> playOneLevel(std::vector<std::string> i_titles, std::istream& i_istream,
+std::vector<std::string> playOneLevel(const std::vector<std::string>& i_titles, std::istream& i_istream,
                                       unsigned int i_sizeOfPackages)
 {
-    std::vector<std::vector<std::string>> packedTitles = makePackages(i_titles, i_sizeOfPackages);
+    auto packedTitles = makePackages(i_titles, i_sizeOfPackages);
     std::vector<std::string> titlesForNextLevel;
-    while(!packedTitles.empty())
+    for (const auto& it : packedTitles)
     {
-        titlesForNextLevel.push_back(choosePreference(packedTitles[0], i_istream));
-        packedTitles.erase(packedTitles.begin());
+        titlesForNextLevel.push_back(choosePreference(it, i_istream));
     }
     return titlesForNextLevel;
 }
 
-std::string playAllLevels(std::vector<std::string> i_titles, std::istream& i_istream)
+std::string playAllLevels(const std::vector<std::string>& i_titles, std::istream& i_istream)
 {
     std::vector<std::string> activeTitles = i_titles;
     unsigned int levelNumber = 0;
@@ -80,7 +77,7 @@ std::vector<std::string> selectTitlesFromTSVFile(std::istream& i_istream, unsign
 {
     std::vector<std::string> titles;
     std::string contentOfRow;
-    for(int rowIndex = 0; rowIndex < i_amountOfTitles; rowIndex++)
+    for(std::size_t rowIndex = 0; rowIndex < i_amountOfTitles; rowIndex++)
     {
         std::getline(i_istream, contentOfRow);
         std::stringstream contentBuffer (contentOfRow);
