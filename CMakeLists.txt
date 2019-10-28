@@ -12,4 +12,4 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
-target_link_libraries(knockoutTest ${GTEST_LIBRARIES} pthread)
+target_link_libraries(knockoutTest ${GTEST_LIBRARIES} pthread gtest_main)
