@@ -52,11 +52,6 @@ TEST(KnockoutTest, MakePackagesOfVariableSizeWithResidual)
 TEST(KnockoutTest, PlayOneLevel)
 {
     std::vector<std::string> movies = {"a", "b", "c", "d", "e", "f", "g", "h", "i"};
-    std::vector<std::string> moviesForNextLevel = {"a", "d", "g"};
-    //ASSERT_EQ(moviesForNextLevel, playOneLevel(movies));
-    std::vector<std::string> moreMovies = {"j", "k", "l", "m", "n", "o", "p", "q", "r"};
-    std::vector<std::string> moreMoviesForNextLevel = {"j", "m", "p"};
-    //ASSERT_EQ(moreMoviesForNextLevel, playOneLevel(moreMovies));
     std::vector<std::string> moviesForNextLevelDifferentChoice = {"a", "d", "h"};
     std::ifstream testInput1_1_2("..//tests//testinput1_1_2.txt");
     ASSERT_EQ(moviesForNextLevelDifferentChoice, playOneLevel(movies, testInput1_1_2));
@@ -67,15 +62,10 @@ TEST(KnockoutTest, PlayOneLevel)
 
 TEST(KnockoutTest, PlayAllLevels)
 {
-    std::vector<std::string> movies = {"a", "b", "c", "d", "e", "f", "g", "h", "i"};
-    std::string finalChoice = "a";
-    //ASSERT_EQ(finalChoice, playAllLevels(movies));
-    std::vector<std::string> moreMovies = {"j", "k", "l", "m", "n", "o", "p", "q", "r"};
-    std::string anotherFinalChoice = "j";
-    //ASSERT_EQ(anotherFinalChoice, playAllLevels(moreMovies));
-    std::string differentFinalChoice = "n";
+    std::vector<std::string> movies = {"j", "k", "l", "m", "n", "o", "p", "q", "r"};
+    std::string finalChoice = "n";
     std::ifstream testInput1_2_1_2("..//tests//testinput1_2_1_2.txt");
-    ASSERT_EQ(differentFinalChoice, playAllLevels(moreMovies, testInput1_2_1_2));
+    ASSERT_EQ(finalChoice, playAllLevels(movies, testInput1_2_1_2));
 }
 
 TEST(KnockoutTest, ReadFromIMDbFile)
