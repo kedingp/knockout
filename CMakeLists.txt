@@ -15,6 +15,7 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
  
 add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
+target_link_libraries(knockoutApp --coverage)
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
 target_link_libraries(knockoutTest --coverage gtest ${CMAKE_THREAD_LIBS_INIT})
