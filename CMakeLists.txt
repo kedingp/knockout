@@ -3,6 +3,8 @@ project(cpp_code)
 
 set (CMAKE_CXX_STANDARD 14)
 
+add_compile_options(--coverage -O0)
+
 # Locate GTest
 include(gtest.cmake)
 find_package (Threads)
@@ -16,4 +18,4 @@ add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
 # target_link_libraries(knockoutTest ${GTEST_LIBRARIES} pthread gtest_main)
-target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} --coverage)
