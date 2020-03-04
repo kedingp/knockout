@@ -60,7 +60,7 @@ TEST(KnockoutTest, PlayOneLevel)
     ASSERT_EQ(moviesForNextLevel4SizedChoice, playOneLevel(movies, testInput1_1, 4));
 }
 
-TEST(KnockoutTest, PlayAllLevels)
+/*TEST(KnockoutTest, PlayAllLevels)
 {
     std::vector<std::string> movies = {"j", "k", "l", "m", "n", "o", "p", "q", "r"};
     std::string finalChoice = "n";
@@ -68,7 +68,7 @@ TEST(KnockoutTest, PlayAllLevels)
     ASSERT_EQ(finalChoice, playAllLevels(movies, testInput1_2_1_2));
 }
 
-/*TEST(KnockoutTest, ReadFromIMDbFile)
+TEST(KnockoutTest, ReadFromIMDbFile)
 {
     std::ifstream imdbInput("..//tests//data.tsv");
     ASSERT_EQ(9, selectTitlesFromTSVFile(imdbInput).size());
