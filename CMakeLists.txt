@@ -4,6 +4,8 @@ project(cpp_code)
 set (CMAKE_CXX_STANDARD 14)
 
 # Locate GTest
+include(gtest.cmake)
+find_package (Threads)
 # find_package(GTest REQUIRED)
 include_directories(include)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
@@ -12,5 +14,6 @@ file(GLOB SOURCES "src/*.cpp")
  
 add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
 
-# add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
+add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
 # target_link_libraries(knockoutTest ${GTEST_LIBRARIES} pthread gtest_main)
+target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT})
