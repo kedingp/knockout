@@ -3,7 +3,11 @@ project(cpp_code)
 
 set (CMAKE_CXX_STANDARD 14)
 
-add_compile_options(--coverage -O0)
+option(ENABLE_COVERAGE FALSE)
+
+if(ENABLE_COVERAGE)
+  add_compile_options(--coverage -O0)
+endif()
 
 # Locate GTest
 include(gtest.cmake)
