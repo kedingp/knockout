@@ -17,5 +17,4 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
-# target_link_libraries(knockoutTest ${GTEST_LIBRARIES} pthread gtest_main)
-target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} --coverage)
+target_link_libraries(knockoutTest --coverage gtest ${CMAKE_THREAD_LIBS_INIT})
