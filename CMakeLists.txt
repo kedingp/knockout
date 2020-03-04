@@ -5,6 +5,7 @@ set (CMAKE_CXX_STANDARD 14)
 
 # Locate GTest
 # find_package(GTest REQUIRED)
+include_directories(include)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
  
 file(GLOB SOURCES "src/*.cpp")
