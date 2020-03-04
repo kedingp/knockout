@@ -3,7 +3,7 @@ sudo: false
 language: cpp
 script:
  - mkdir build && cd build
- - cmake ..
+ - cmake .. -D ENABLE_COVERAGE:BOOL=TRUE
  - make
  - ./knockoutTest
 
