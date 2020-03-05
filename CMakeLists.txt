@@ -27,4 +27,4 @@ target_link_libraries(knockoutApp --coverage)
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
 #target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} yaml-cpp)
-target_link_libraries(knockoutTest --coverage gtest ${CMAKE_THREAD_LIBS_INIT} yaml-cpp)
+target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} yaml-cpp --coverage)
