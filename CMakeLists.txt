@@ -12,7 +12,7 @@ option(ENABLE_COVERAGE FALSE)
 # Locate GTest and yaml-cpp
 include(gtest.cmake)
 find_package (Threads)
-add_subdirectory(SYSTEM yaml)
+add_subdirectory(yaml)
 include_directories(include SYSTEM yaml/include)
 
 # find_package(GTest REQUIRED)
