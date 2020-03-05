@@ -4,8 +4,15 @@
 
 int main(int argc, char **argv)
 {
-    std::ifstream imdbInput("..//tests//data.tsv");
+    if (argc != 2)
+    {
+        std::cout << "Please specify a filename!" << std::endl;
+        return -1;
+    }
+    std::ifstream imdbInput(argv[1]);
     mainRoutine(imdbInput);
     Knockout knockout(imdbInput);
     //knockout.solve();
+
+    return 0;
 }

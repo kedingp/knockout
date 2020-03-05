@@ -12,8 +12,9 @@ endif()
 # Locate GTest
 include(gtest.cmake)
 find_package (Threads)
-# find_package(GTest REQUIRED)
 include_directories(include)
+
+# find_package(GTest REQUIRED)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
  
 file(GLOB SOURCES "src/*.cpp")
