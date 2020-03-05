@@ -13,8 +13,8 @@ option(ENABLE_COVERAGE FALSE)
 include(gtest.cmake)
 find_package (Threads)
 add_subdirectory(yaml)
-include_directories(include yaml/include)
-set_property(TARGET yaml-cpp APPEND_STRING PROPERTY COMPILE_FLAGS " -w") #ido not show warnings of yaml-cpp
+include_directories(include SYSTEM yaml/include)
+set_property(TARGET gtest APPEND_STRING PROPERTY COMPILE_FLAGS " -w") # do not show warnings of yaml-cpp
 
 # find_package(GTest REQUIRED)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
