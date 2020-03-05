@@ -6,7 +6,6 @@ script:
  - cmake -D ENABLE_COVERAGE:BOOL=TRUE ..
  - make
  - ./knockoutTest
- - ./knockoutApp
-
+ 
 after_success: 
  - bash <(curl -s https://codecov.io/bash)
