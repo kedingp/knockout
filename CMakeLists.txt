@@ -9,11 +9,11 @@ if(ENABLE_COVERAGE)
   add_compile_options(--coverage -O0)
 endif()
 
-# Locate GTest
+# Locate GTest and yaml-cpp
 include(gtest.cmake)
 find_package (Threads)
 add_subdirectory(yaml)
-include_directories(include)
+include_directories(include yaml/include)
 
 # find_package(GTest REQUIRED)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
