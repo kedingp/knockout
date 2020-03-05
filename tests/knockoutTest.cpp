@@ -68,7 +68,7 @@ TEST(KnockoutTest, PlayAllLevels)
     ASSERT_EQ(finalChoice, playAllLevels(movies, testInput1_2_1_2));
 }
 
-TEST(KnockoutTest, ReadFromIMDbFile)
+/*TEST(KnockoutTest, ReadFromIMDbFile)
 {
     std::ifstream imdbInput("..//tests//data.tsv");
     ASSERT_EQ(9, selectTitlesFromTSVFile(imdbInput).size());
@@ -77,7 +77,7 @@ TEST(KnockoutTest, ReadFromIMDbFile)
     ASSERT_EQ(13, selectTitlesFromTSVFile(imdbInput, 13).size());
 }
 
-/*TEST(KnockoutTest, MainRoutine)
+TEST(KnockoutTest, MainRoutine)
 {
     std::ifstream imdbInput("..//tests//data.tsv");
     std::ifstream testInput1_2_1_2("..//tests//testinput1_2_1_2.txt");
