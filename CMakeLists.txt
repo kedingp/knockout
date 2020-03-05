@@ -12,6 +12,7 @@ endif()
 # Locate GTest
 include(gtest.cmake)
 find_package (Threads)
+add_subdirectory(yaml)
 include_directories(include)
 
 # find_package(GTest REQUIRED)
@@ -23,4 +24,4 @@ add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
 target_link_libraries(knockoutApp --coverage)
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
-target_link_libraries(knockoutTest --coverage gtest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(knockoutTest --coverage gtest ${CMAKE_THREAD_LIBS_INIT} yaml-cpp)

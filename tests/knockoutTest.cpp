@@ -1,5 +1,6 @@
 #include "knockout.h"
 #include <gtest/gtest.h>
+#include <yaml-cpp/yaml.h>
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -75,9 +76,9 @@ TEST(KnockoutTest, PlayAllLevels)
     std::string movie = "Miss Jerry";
     ASSERT_EQ(movie, selectTitlesFromTSVFile(imdbInput)[0]);
     ASSERT_EQ(13, selectTitlesFromTSVFile(imdbInput, 13).size());
-}
+}*/
 
-TEST(KnockoutTest, MainRoutine)
+/*TEST(KnockoutTest, MainRoutine)
 {
     std::ifstream imdbInput("..//tests//data.tsv");
     std::ifstream testInput1_2_1_2("..//tests//testinput1_2_1_2.txt");
