@@ -5,9 +5,12 @@ set (CMAKE_CXX_STANDARD 14)
 
 option(ENABLE_COVERAGE FALSE)
 
-if(ENABLE_COVERAGE)
-  add_compile_options(--coverage -O0)
-endif()
+#if(ENABLE_COVERAGE)
+#  add_compile_options(--coverage -O0)
+#endif()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0") # debug, no optimisation
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage") # enabling coverage
 
 # Locate GTest and yaml-cpp
 include(gtest.cmake)
