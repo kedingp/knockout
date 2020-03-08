@@ -1,6 +1,5 @@
 #include "knockout.h"
 #include <gtest/gtest.h>
-#include <yaml-cpp/yaml.h>
 #include <string>
 #include <iostream>
 #include <fstream>

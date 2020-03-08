@@ -5,19 +5,17 @@ set (CMAKE_CXX_STANDARD 14)
 
 option(ENABLE_COVERAGE FALSE)
 
-#if(ENABLE_COVERAGE)
-#  add_compile_options(--coverage -O0)
-#endif()
+if(ENABLE_COVERAGE)
+  add_compile_options(--coverage -O0)
+endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0") # debug, no optimisation
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage") # enabling coverage
 
 # Locate GTest and yaml-cpp
 include(gtest.cmake)
 find_package (Threads)
-add_subdirectory(yaml)
-include_directories(include SYSTEM yaml/include)
-set_property(TARGET yaml-cpp APPEND_STRING PROPERTY COMPILE_FLAGS " -w") # do not show warnings of yaml-cpp
+#add_subdirectory(yaml)
+include_directories(include)
+#set_property(TARGET yaml-cpp APPEND_STRING PROPERTY COMPILE_FLAGS " -w") # do not show warnings of yaml-cpp
 
 # find_package(GTest REQUIRED)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
@@ -25,11 +23,11 @@ set_property(TARGET yaml-cpp APPEND_STRING PROPERTY COMPILE_FLAGS " -w") # do no
 file(GLOB SOURCES "src/*.cpp")
  
 add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
-#target_link_libraries(knockoutApp)
-target_link_libraries(knockoutApp --coverage)
+target_link_libraries(knockoutApp)
+#target_link_libraries(knockoutApp --coverage)
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
-#target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} yaml-cpp)
-target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} yaml-cpp --coverage)
+target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT})
+#target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT}--coverage)
 
 link_libraries(gcov)
