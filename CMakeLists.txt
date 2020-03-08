@@ -7,15 +7,13 @@ option(ENABLE_COVERAGE FALSE)
 
 if(ENABLE_COVERAGE)
   add_compile_options(--coverage -O0)
+  list(APPEND EXTRA_LIBS gcov --coverage)
 endif()
 
-
-# Locate GTest and yaml-cpp
+# Locate GTest
 include(gtest.cmake)
 find_package (Threads)
-#add_subdirectory(yaml)
 include_directories(include)
-#set_property(TARGET yaml-cpp APPEND_STRING PROPERTY COMPILE_FLAGS " -w") # do not show warnings of yaml-cpp
 
 # find_package(GTest REQUIRED)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
@@ -23,11 +21,7 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
  
 add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
-target_link_libraries(knockoutApp)
-#target_link_libraries(knockoutApp --coverage)
+target_link_libraries(knockoutApp ${EXTRA_LIBS})
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
-target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT})
-#target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT}--coverage)
-
-link_libraries(gcov)
+target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} ${EXTRA_LIBS})
