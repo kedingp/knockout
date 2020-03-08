@@ -1,6 +1,9 @@
 # Folders
 build
 windows_builds
+/.idea/
+cmake-build-debug
+cmake-build-release
 
 # QT Creator
 *.user
@@ -48,4 +51,4 @@ windows_builds
 *.cxxflags
 *.files
 *.includes
-/.idea/
+
