@@ -1,4 +1,4 @@
-#include "knockout.h"
+#include "knockout_functional.h"
 #include <gtest/gtest.h>
 #include <string>
 #include <iostream>

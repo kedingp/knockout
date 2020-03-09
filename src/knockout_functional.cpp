@@ -1,17 +1,13 @@
-#include "knockout.h"
+//
+// Created by phili on 09.03.2020.
+//
+
 #include <sstream>
+#include "knockout_functional.h"
 
-Knockout::Knockout(istream& titleDatabase_, istream& selectionMode_,
-                   unsigned int sizeOfPackages_, unsigned int amountOfTitles_) :
-    sizeOfPackages(sizeOfPackages_), amountOfTitles(amountOfTitles_),
-    titleDatabase(titleDatabase_), selectionMode(selectionMode_)
-{
-}
+using namespace std;
 
-Knockout::~Knockout()
-{}
-
-string Knockout::choosePreference(const vector<string> &titles) const
+string choosePreference(const vector<string> &titles, istream& istream)
 {
     if(titles.size() == 1)
     {
@@ -25,14 +21,14 @@ string Knockout::choosePreference(const vector<string> &titles) const
         {
             cout << title_index + 1 << ": " << titles[title_index] << endl;
         }
-        selectionMode >> preference;
+        istream >> preference;
 
         cout << "Your choice: " << titles[preference-1] << endl;
         return titles[preference-1];
     }
 }
 
-vector<vector<string>> Knockout::makePackages(const vector<string>& titles) const
+vector<vector<string>> makePackages(const vector<string>& titles, unsigned int sizeOfPackages)
 {
     vector<vector<string>> packedTitles;
     vector<string> package;
@@ -54,18 +50,19 @@ vector<vector<string>> Knockout::makePackages(const vector<string>& titles) cons
     return packedTitles;
 }
 
-vector<string> Knockout::playOneLevel(const vector<string>& titles) const
+vector<string> playOneLevel(const vector<string>& titles, istream& istream,
+                            unsigned int sizeOfPackages)
 {
-    auto packedTitles = makePackages(titles);
+    auto packedTitles = makePackages(titles, sizeOfPackages);
     vector<string> titlesForNextLevel;
     for (const auto& it : packedTitles)
     {
-        titlesForNextLevel.push_back(choosePreference(it));
+        titlesForNextLevel.push_back(choosePreference(it, istream));
     }
     return titlesForNextLevel;
 }
 
-string Knockout::playAllLevels(const vector<string>& titles) const
+string playAllLevels(const vector<string>& titles, istream& istream)
 {
     vector<string> activeTitles = titles;
     unsigned int levelNumber = 0;
@@ -74,19 +71,19 @@ string Knockout::playAllLevels(const vector<string>& titles) const
         levelNumber++;
         cout << "*************************************************************" << endl;
         cout << "Level " << levelNumber << " selection" << endl;
-        activeTitles = playOneLevel(activeTitles);
+        activeTitles = playOneLevel(activeTitles, istream);
     }
     cout << "Enjoy the movie!" << endl;
     return activeTitles[0];
 }
 
-vector<string> Knockout::selectTitlesFromTSVFile() const
+vector<string> selectTitlesFromTSVFile(istream& istream, unsigned int amountOfTitles)
 {
     vector<string> titles;
     string contentOfRow;
     for(size_t rowIndex = 0; rowIndex < amountOfTitles; rowIndex++)
     {
-        getline(titleDatabase, contentOfRow);
+        getline(istream, contentOfRow);
         stringstream contentBuffer (contentOfRow);
         string tempColumnEntry;
         vector<string> cleanContentOfRow;
@@ -99,17 +96,13 @@ vector<string> Knockout::selectTitlesFromTSVFile() const
     return titles;
 }
 
-string Knockout::solve() const
+string mainRoutine(istream& titleDatabase, istream& selectionMode)
 {
     //remove the headers from the Database
     string headers;
     getline(titleDatabase, headers);
 
-    vector<string> titlesFromDatabase = selectTitlesFromTSVFile();
-    string favouriteTitle = playAllLevels(titlesFromDatabase);
+    vector<string> titlesFromDatabase = selectTitlesFromTSVFile(titleDatabase);
+    string favouriteTitle = playAllLevels(titlesFromDatabase, selectionMode);
     return favouriteTitle;
 }
-
-
-
-

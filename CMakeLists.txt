@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.14)
 project(knockout VERSION 1.0)
 
 set (CMAKE_CXX_STANDARD 14)
@@ -20,8 +20,8 @@ include_directories(include)
  
 file(GLOB SOURCES "src/*.cpp")
  
-add_executable(knockoutApp src/knockoutApp.cpp src/knockout.cpp)
+add_executable(knockoutApp src/knockoutApp.cpp src/knockout_functional.cpp)
 target_link_libraries(knockoutApp ${EXTRA_LIBS})
 
-add_executable(knockoutTest tests/knockoutTest.cpp src/knockout.cpp)
+add_executable(knockoutTest tests/knockoutTest.cpp src/knockout_functional.cpp)
 target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} ${EXTRA_LIBS})

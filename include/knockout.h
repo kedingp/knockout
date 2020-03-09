@@ -30,18 +30,4 @@ private:
 };
 
 
-
-string choosePreference(const vector<string>& titles, istream& istream = cin);
-
-vector<vector<string>> makePackages(const vector<string> &titles, unsigned int sizeOfPackages = 3);
-
-vector<string> playOneLevel(const vector<string>& titles, istream& istream = cin,
-                                      unsigned int sizeOfPackages = 3);
-
-string playAllLevels(const vector<string>& titles, istream& istream = cin);
-
-vector<string> selectTitlesFromTSVFile(istream& istream, unsigned int amountOfTitles = 9);
-
-string mainRoutine(istream& titleDatabase, istream& selectionMode = cin);
-
 #endif

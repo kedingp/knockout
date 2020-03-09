@@ -1,4 +1,4 @@
-#include "knockout.h"
+#include "knockout_functional.h"
 #include <iostream>
 #include <fstream>
 
@@ -11,8 +11,6 @@ int main(int argc, char **argv)
     }
     std::ifstream imdbInput(argv[1]);
     mainRoutine(imdbInput);
-    Knockout knockout(imdbInput);
-    //knockout.solve();
 
     return 0;
 }
