@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.4)
-project(knockout VERSION 1.0)
+cmake_minimum_required(VERSION 3.8)
+project(knockout VERSION 1.0
+                 LANGUAGES CXX)
 
-set (CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 14)
 
 option(ENABLE_COVERAGE FALSE)
 
@@ -13,15 +14,14 @@ endif()
 # Locate GTest
 include(gtest.cmake)
 find_package (Threads)
-include_directories(include)
 
 # find_package(GTest REQUIRED)
 # include_directories(include ${GTEST_INCLUDE_DIRS})
  
-file(GLOB SOURCES "src/*.cpp")
- 
 add_executable(knockoutApp src/knockoutApp.cpp src/knockout_functional.cpp)
-target_link_libraries(knockoutApp ${EXTRA_LIBS})
+target_include_directories(knockoutApp PUBLIC include)
+target_link_libraries(knockoutApp PUBLIC ${EXTRA_LIBS})
 
 add_executable(knockoutTest tests/knockoutTest.cpp src/knockout_functional.cpp)
-target_link_libraries(knockoutTest gtest ${CMAKE_THREAD_LIBS_INIT} ${EXTRA_LIBS})
+target_include_directories(knockoutTest PUBLIC include)
+target_link_libraries(knockoutTest PUBLIC gtest ${CMAKE_THREAD_LIBS_INIT} ${EXTRA_LIBS})
